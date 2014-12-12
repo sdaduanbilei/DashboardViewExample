@@ -5,13 +5,31 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import cn.sdaduanbilei.library.DashboardView;
+
 
 public class MainActivity extends ActionBarActivity {
+
+    DashboardView mDashoardView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mDashoardView = (DashboardView) findViewById(R.id.dash_view);
+
+
+        mDashoardView.setDashProgress(20);//设置进度
+        mDashoardView.setDashTitle("0 km/h"); // 设置dashview 的title
+        mDashoardView.setDashTitleColor(getResources().getColor(R.color.downy)); // title 颜色
+//        mDashoardView.setDashTitleSize(12); title 大小
+        mDashoardView.setDasProColor(getResources().getColor(R.color.downy));// 设置进度条的宽度
+//        mDashoardView.setDashProWidth(16); 设置进度条的宽度
+        mDashoardView.setDashColor(getResources().getColor(R.color.white_dash));// 设置底部圆环颜色
+//        mDashoardView.setDashWidth(8);    设置底部圆环的宽度
+        mDashoardView.setDashIcon(R.drawable.ic_bike); // 设置dashboard中间的图标
+        mDashoardView.setDashProMax(100);//设置dashboard 的最大值
+
     }
 
 

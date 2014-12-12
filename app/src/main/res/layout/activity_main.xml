@@ -10,6 +10,7 @@
     tools:context=".MainActivity">
 
     <cn.sdaduanbilei.library.DashboardView
+        android:id="@+id/dash_view"
         android:layout_width="@dimen/dash_size"
         android:layout_height="@dimen/dash_size"
         app:dashTitle="DashBoard"
