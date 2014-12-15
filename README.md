@@ -1,11 +1,13 @@
 #DashBoardView 1.0.0
------------------------------------
+
+----------------------------------------------------------
 ####DashBoardView  是我的一个项目需要然后自己写的一个 view ，很简单 分享出来，如果大家有需要希望能满足你们的需要
------------------------------------
+
+----------------------------------------------------------
 
 ##Screenshot
 
-![Mou icon](https://raw.githubusercontent.com/sdaduanbilei/DashboardViewExample/master/screenshot/device-2014-12-12-144006.png)
+![Mou icon](https://raw.githubusercontent.com/sdaduanbilei/DashboardViewExample/master/screenshot/device-2014-12-12-144006.png =360x707)
 
 ----------------------------------------------------------
 ##XML_layout
@@ -37,9 +39,13 @@
      mDashoardView.setDashProMax(100);//设置dashboard 的最大值
      
 ##Version 
- 1.0 
-##About me
-一个小小程序员
+
+ 1.0
+  
+##About Me
+
+一个小小程序员  kunming
+
 ##License
 	Copyright 2014 drakeet
 

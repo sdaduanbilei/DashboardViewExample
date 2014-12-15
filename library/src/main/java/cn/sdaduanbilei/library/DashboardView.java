@@ -5,10 +5,14 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.DashPathEffect;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PathEffect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 
@@ -70,6 +74,11 @@ public class DashboardView extends View {
      */
     private int dashTitleColor;
 
+    /**
+     * Dash style
+     */
+    private int dashStyle;
+
 
     public DashboardView(Context context) {
         this(context, null);
@@ -95,7 +104,7 @@ public class DashboardView extends View {
         dashTitleSize = typedArray.getDimension(R.styleable.DashboardView_dashTitleSize, 80);
         dashTitleColor = typedArray.getResourceId(R.styleable.DashboardView_dashTitlColor, getResources().getColor(R.color.material_blue_grey_800));
         dashTitle = typedArray.getNonResourceString(R.styleable.DashboardView_dashTitle);
-
+        dashStyle = typedArray.getInteger(R.styleable.DashboardView_dashStyle, DashBoard.NOMAL);
         typedArray.recycle();
     }
 
@@ -107,7 +116,148 @@ public class DashboardView extends View {
          * 画笔
          */
         paint = new Paint();
+        switch (dashStyle) {
+            case DashBoard.RING:
+                Canvas_Ring(canvas);
+                break;
+            case DashBoard.NOMAL:
+                Canvas_Nomal(canvas);
+                break;
+        }
 
+
+    }
+
+    /**
+     * Nomal style
+     *
+     * @param canvas
+     */
+    private void Canvas_Nomal(Canvas canvas) {
+
+        /**
+         * 画一个圆环 底板
+         */
+        int center = getWidth() / 2;//圆心
+        int radius = center - 32; // 圆环半径
+
+        /**
+         * 最外层的一个 圆形括弧
+         */
+        paint.setColor(dashColor);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(dashWidth);
+        paint.setAntiAlias(true);
+        paint.setStrokeCap(Paint.Cap.ROUND); // paint  加上圆角
+
+        RectF rectF = new RectF(center - radius, center - radius, center + radius, center + radius);
+        canvas.drawArc(rectF, 150, 240, false, paint);
+
+
+        /**
+         *  进度地板颜色
+         */
+        /**
+         * 里面一层的 间隔
+         */
+        paint.setColor(dashColor);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(dashProWidth);
+        paint.setAntiAlias(true);
+        paint.setStrokeCap(Paint.Cap.BUTT);
+//        paint.setStrokeMiter(2);
+        // 虚线
+        PathEffect pathEffect = new DashPathEffect(new float[]{16, 16, 16, 16}, 4);
+        paint.setPathEffect(pathEffect);
+        rectF = new RectF(center - radius + dashProWidth, center - radius + dashProWidth, center + radius - dashProWidth, center + radius - dashProWidth);
+        canvas.drawArc(rectF, 152, 240, false, paint);
+
+        /**
+         * 里面一层的 进度
+         */
+        double warning = dashProMax * 0.8;
+        Log.e("TAG",warning  + "==" +dashProgress);
+        if (dashProgress > warning) {
+            paint.setColor(getResources().getColor(R.color.lava));
+        } else {
+            paint.setColor(dasProColor);
+        }
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(dashProWidth);
+        paint.setAntiAlias(true);
+        paint.setStrokeCap(Paint.Cap.BUTT);
+//        paint.setStrokeMiter(2);
+        // 虚线
+        pathEffect = new DashPathEffect(new float[]{16, 16, 16, 16}, 4);
+        paint.setPathEffect(pathEffect);
+        if (dashProgress>0) {
+            rectF = new RectF(center - radius + dashProWidth, center - radius + dashProWidth, center + radius - dashProWidth, center + radius - dashProWidth);
+            canvas.drawArc(rectF, 152, 245 * (dashProgress / dashProMax), false, paint);
+        }
+        /**
+         * 下面的文子
+         */
+        String str = dashTitle + "";
+        paint.setPathEffect(null);
+        paint.setStrokeWidth(0);
+        paint.setTextSize(dashTitleSize);
+        paint.setTypeface(Typeface.SANS_SERIF); //设置字体
+        paint.setColor(dashTitleColor);
+        // 测量 字体宽度
+        float textWidth = paint.measureText(str);
+        canvas.drawText(str, center - textWidth / 2, radius * 2, paint);
+
+
+        /**
+         * 画中心的一个点
+         */
+        paint.setColor(getResources().getColor(R.color.background_floating_material_dark));
+        paint.setStyle(Paint.Style.FILL);// 实心
+        paint.setAntiAlias(true);
+        canvas.drawCircle(center, center, 8, paint);
+
+        /**
+         * 中心画一个小圆
+         */
+        paint.setColor(getResources().getColor(android.R.color.darker_gray));// 设置画笔颜色
+        paint.setStyle(Paint.Style.STROKE);// 设置空心
+        paint.setStrokeWidth(2);// 圆环宽度
+        paint.setAntiAlias(true); // 消除锯齿
+        canvas.drawCircle(center, center, radius / 5, paint);//绘制图形
+
+        /**
+         * 画一个指针
+         */
+        paint.setColor(getResources().getColor(R.color.background_floating_material_dark));
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), dashIcon);
+
+        Log.e("TAG", dashIcon + "");
+        Matrix matrix = new Matrix();
+        if (dashProgress > 0) {
+            float rotate = 245 * (dashProgress / dashProMax);
+            Log.e("TAG", rotate + "");
+            if (dashProgress < 120) {
+                matrix.setRotate(-120 + rotate, center , center );
+//            }else{
+//                matrix.setRotate();
+//            }
+            }
+        } else {
+            matrix.setRotate(-120, center , center);
+        }
+        canvas.concat(matrix);
+        canvas.drawBitmap(bitmap, center - bitmap.getWidth() /2, center - bitmap.getHeight()-2, null);
+//        invalidate();
+
+
+    }
+
+    /**
+     * Ring style
+     *
+     * @param canvas
+     */
+    private void Canvas_Ring(Canvas canvas) {
         /**
          * 画一个圆环 底板
          */
@@ -131,7 +281,7 @@ public class DashboardView extends View {
          * 中心 画个textview  速度
          *
          */
-        String str = dashTitle+"";
+        String str = dashTitle + "";
         paint.setStrokeWidth(0);
         paint.setTextSize(dashTitleSize);
         paint.setTypeface(Typeface.SANS_SERIF); //设置字体
@@ -139,11 +289,18 @@ public class DashboardView extends View {
         // 测量 字体宽度
         float textWidth = paint.measureText(str);
         canvas.drawText(str, center - textWidth / 2, center + 80, paint);
+
+
         /**
          * 在画一个大圆环 进度条
-
          */
-        paint.setColor(dasProColor);
+        // 警告值
+        double warning = dashProMax * 0.8;
+        if (dashProgress > warning) {
+            paint.setColor(getResources().getColor(R.color.lava));
+        } else {
+            paint.setColor(dasProColor);
+        }
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(dashProWidth);
         paint.setAntiAlias(true);
@@ -159,7 +316,6 @@ public class DashboardView extends View {
         paint.setStyle(Paint.Style.FILL);// 实心
         paint.setAntiAlias(true);
         canvas.drawCircle(center, getHeight() - 32, 10, paint);
-
     }
 
 
@@ -258,4 +414,11 @@ public class DashboardView extends View {
         }
     }
 
+    public int getDashStyle() {
+        return dashStyle;
+    }
+
+    public void setDashStyle(int dashStyle) {
+        this.dashStyle = dashStyle;
+    }
 }

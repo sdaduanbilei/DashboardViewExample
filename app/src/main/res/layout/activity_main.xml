@@ -15,7 +15,7 @@
         android:layout_height="@dimen/dash_size"
         app:dashTitle="DashBoard"
         app:dashProMax="100"
-        app:dashProgress="40"
+        app:dashProgress="20"
         app:dashProColor="@color/downy"
         app:dashColor="@color/white_dash"
         app:dashProWidth="16dp"

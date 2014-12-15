@@ -11,5 +11,8 @@
         <attr name="dashTitleSize" format="dimension"/>
         <attr name="dashTitlColor" format="reference"/>
         <attr name="dashTitle" format="string"/>
+
+        <!--style-->
+        <attr name="dashStyle" format="integer"/>
     </declare-styleable>
 </resources>
