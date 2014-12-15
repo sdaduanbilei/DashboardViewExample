@@ -11,7 +11,7 @@
 
 ### DashBoard.NOMAL
 
-![Mou icon](https://raw.githubusercontent.com/sdaduanbilei/DashboardViewExample/master/screenshot/device-2014-12-15-161422.png =360x707)
+![Mou icon](http://78rc7f.com1.z0.glb.clouddn.com/device-2014-12-15-174329.png =360x707)
 
 ### DashBoard.RING 
 
@@ -48,7 +48,7 @@
      
 ##Version 
 
- 1.0
+ 1.0.0
   
 ##About Me
 
