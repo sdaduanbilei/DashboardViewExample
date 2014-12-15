@@ -9,6 +9,13 @@
 
 ![Mou icon](https://raw.githubusercontent.com/sdaduanbilei/DashboardViewExample/master/screenshot/device-2014-12-12-144006.png =360x707)
 
+### DashBoard.NOMAL
+
+![Mou icon](https://raw.githubusercontent.com/sdaduanbilei/DashboardViewExample/master/screenshot/device-2014-12-15-161422.png =360x707)
+
+### DashBoard.RING 
+
+
 ----------------------------------------------------------
 ##XML_layout
 
@@ -37,6 +44,7 @@
      mDashoardView.setDashWidth(8);    设置底部圆环的宽度
      mDashoardView.setDashIcon(R.drawable.ic_bike); // 设置dashboard中间的图标
      mDashoardView.setDashProMax(100);//设置dashboard 的最大值
+     mDashoardView.setDashStyle(DashBoard.NOMAL);// 设置主题
      
 ##Version 
 
@@ -47,7 +55,7 @@
 一个小小程序员  kunming
 
 ##License
-	Copyright 2014 drakeet
+	Copyright 2014 sdaduanbilei
 
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
