@@ -7,18 +7,18 @@
 
 ##Screenshot
 
-![Mou icon](screenshot/device-2014-12-15-174329.png =360x707)
+![](screenshot/device-2014-12-15-174329.png)
 
 ### DashBoard.NOMAL
-![Screenshot](screenshot/device-2014-12-12-144006.png =360x707)
+![](screenshot/device-2014-12-12-144006.png)
 
 ### DashBoard.RING 
 
 
 ----------------------------------------------------------
 ##XML_layout
-
-	 <cn.sdaduanbilei.library.DashboardView
+```
+		<cn.sdaduanbilei.library.DashboardView
         android:layout_width="@dimen/dash_size"
         android:layout_height="@dimen/dash_size"
         app:dashTitle="DashBoard"
@@ -31,9 +31,10 @@
         app:dashWidth="4dp"
         app:dashIcon="@drawable/ic_bike"
         />
-        
+```
 ##CODE
-	 mDashoardView.setDashProgress(20);//设置进度
+``` 
+     mDashoardView.setDashProgress(20);//设置进度
      mDashoardView.setDashTitle("0 km/h"); // 设置dashview 的title
      mDashoardView.setDashTitleColor(getResources().getColor(R.color.downy)); // title 颜色
      mDashoardView.setDashTitleSize(12); title 大小
@@ -44,7 +45,7 @@
      mDashoardView.setDashIcon(R.drawable.ic_bike); // 设置dashboard中间的图标
      mDashoardView.setDashProMax(100);//设置dashboard 的最大值
      mDashoardView.setDashStyle(DashBoard.NOMAL);// 设置主题
-     
+```
 ##Version 
 
  1.0.0
