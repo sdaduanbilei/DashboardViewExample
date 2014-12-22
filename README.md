@@ -16,6 +16,15 @@
 
 
 ----------------------------------------------------------
+
+### Use
+
+``` compile 'com.github.sdaduanbilei:dashboard-view:1.0.0@aar'
+```
+
+或者下载library
+
+
 ##XML_layout
 ```
 		<cn.sdaduanbilei.library.DashboardView
